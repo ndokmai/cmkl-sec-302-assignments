@@ -1,0 +1,32 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.uv-cache/
+
+# Coverage and build output
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Notebook and marimo session state
+.ipynb_checkpoints/
+.marimo/
+__marimo__/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# macOS files
+.DS_Store
+._*
