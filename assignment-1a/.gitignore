@@ -1,0 +1,7 @@
+.venv/
+.uv-cache/
+data/
+outputs/
+.ipynb_checkpoints/
+__pycache__/
+.pytest_cache/
