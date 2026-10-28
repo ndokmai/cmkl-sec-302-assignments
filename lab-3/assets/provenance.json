@@ -1,0 +1,33 @@
+{
+  "source": "https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz",
+  "source_sha256": "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1",
+  "training_examples": 15000,
+  "training_split": "first 15000 MNIST training examples",
+  "architecture": "Flatten \u2192 Dense(64, relu) \u2192 Dense(10, softmax)",
+  "trainer": "sklearn.neural_network.MLPClassifier",
+  "seed": 302,
+  "epochs": 20,
+  "keras_version": "3.15.1",
+  "examples": {
+    "split": "MNIST test",
+    "indices_in_class_order_0_to_9": [
+      3,
+      2,
+      35,
+      44,
+      4,
+      15,
+      11,
+      26,
+      61,
+      7
+    ],
+    "shape": [
+      10,
+      28,
+      28
+    ],
+    "normalization": "float32 [0, 1]; 0 paper, 1 ink"
+  },
+  "runtime": "Dense weights exported to NumPy; same pretrained classifier, no runtime Keras dependency"
+}
