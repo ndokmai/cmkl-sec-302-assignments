@@ -1,0 +1,18 @@
+[project]
+name = "sec302-lab-4-fgsm"
+version = "0.1.0"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "marimo>=0.25.2,<0.26",
+    "tensorflow>=2.20,<2.22",
+    "matplotlib>=3.9,<4",
+    "numpy>=2,<3",
+    "pillow>=11,<13",
+]
+
+[dependency-groups]
+dev = ["pytest>=9,<10"]
+
+[tool.marimo.runtime]
+auto_instantiate = true
+on_cell_change = "autorun"
