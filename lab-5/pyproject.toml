@@ -1,0 +1,12 @@
+[project]
+name = "sec302-lab-5-salary-memorization"
+version = "0.7.0"
+requires-python = ">=3.12,<3.14"
+dependencies = ["marimo>=0.25.2,<0.26", "matplotlib>=3.9,<4", "numpy>=2,<3", "scikit-learn>=1.7,<1.8", "threadpoolctl>=3,<4", "pandas>=2.2,<3", "kagglehub>=0.3,<1"]
+
+[dependency-groups]
+dev = ["pytest>=9,<10"]
+
+[tool.marimo.runtime]
+auto_instantiate = true
+on_cell_change = "autorun"
