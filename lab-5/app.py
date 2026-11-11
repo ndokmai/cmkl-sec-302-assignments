@@ -1,7 +1,10 @@
 import marimo
 
-__generated_with = '0.25.2'
-app = marimo.App(width='full',app_title='Lab 5 · Infer a Confidential Performance Rating')
+__generated_with = "0.25.2"
+app = marimo.App(
+    width="full",
+    app_title="Lab 5 · Infer a Confidential Performance Rating",
+)
 
 
 @app.cell(hide_code=True)
@@ -32,11 +35,29 @@ def _():
             }),
         ])
 
-    return mo,json,html,load_dataset,architecture_plot,single_learning_plot,figure_png,SOURCE_URL,fit,compile_search,evaluate,public_profiles,candidate_plot,summary,TARGET_ID,STARTER,DEFENSE_TARGET,display_result,model_overview_plot,check_manual,prediction_history_html,confusion_plot,submission_card,defense_checks
+    return (
+        SOURCE_URL,
+        STARTER,
+        TARGET_ID,
+        check_manual,
+        compile_search,
+        defense_checks,
+        display_result,
+        evaluate,
+        figure_png,
+        fit,
+        load_dataset,
+        mo,
+        model_overview_plot,
+        prediction_history_html,
+        public_profiles,
+        single_learning_plot,
+        submission_card,
+    )
 
 
-@app.cell(hide_code=True)
-def _(figure_png,mo,model_overview_plot):
+@app.cell
+def _(figure_png, mo, model_overview_plot):
     mo.vstack([
         mo.md("""
         # Lab 5 · Infer a Confidential Performance Rating
@@ -54,7 +75,7 @@ def _(figure_png,mo,model_overview_plot):
         investigation. For transparency, the company makes the salary prediction
         service publicly accessible.
 
-        **Your goal is to use model inversion to infer employees' confidential
+        **Your goal is to use attribute inference to infer employees' confidential
         performance scores from the model's responses.**
         """),
         mo.image(figure_png(model_overview_plot())),
@@ -77,7 +98,7 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(fit,load_button,load_dataset,mo):
+def _(fit, load_button, load_dataset, mo):
     mo.stop(not load_button.value)
     data=None
     _problem=None
@@ -88,11 +109,11 @@ def _(fit,load_button,load_dataset,mo):
     except Exception as _exc:
         _problem=str(_exc)
     mo.stop(_problem is not None,mo.callout(f'Could not prepare the lab: {_problem}. Try prepare_data.py while online.',kind='warn'))
-    return data,initial
+    return data, initial
 
 
 @app.cell(hide_code=True)
-def _(TARGET_ID,data,initial,mo,public_profiles):
+def _(TARGET_ID, data, initial, mo, public_profiles):
     target_public=public_profiles(data,(TARGET_ID,))
     _training=data.set_index('EmpID').loc[list(initial.train_ids)]
     _profile=target_public.iloc[0]
@@ -114,17 +135,17 @@ def _(TARGET_ID,data,initial,mo,public_profiles):
         mo.md(f"**Known salary: {_profile.Salary:,.0f}**"),
         manual_form,
     ])
-    return manual_form,target_public
+    return (manual_form,)
 
 
 @app.cell(hide_code=True)
-def _(initial,mo):
+def _(mo):
     get_manual_history,set_manual_history=mo.state([])
-    return get_manual_history,set_manual_history
+    return get_manual_history, set_manual_history
 
 
 @app.cell(hide_code=True)
-def _(check_manual,data,initial,manual_form,mo,set_manual_history):
+def _(check_manual, data, initial, manual_form, mo, set_manual_history):
     mo.stop(manual_form.value is None)
     _choices=manual_form.value
     mo.stop(any(value is None for value in _choices.values()),
@@ -144,7 +165,7 @@ def _(check_manual,data,initial,manual_form,mo,set_manual_history):
 
 
 @app.cell(hide_code=True)
-def _(get_manual_history,mo,prediction_history_html,set_manual_history):
+def _(get_manual_history, mo, prediction_history_html, set_manual_history):
     _history=get_manual_history()
     mo.stop(not _history)
     _clear=mo.ui.button(label='Clear prediction history',on_click=lambda _:set_manual_history([]))
@@ -157,7 +178,7 @@ def _(get_manual_history,mo,prediction_history_html,set_manual_history):
 
 
 @app.cell(hide_code=True)
-def _(SOURCE_URL,STARTER,manual_result,mo):
+def _(SOURCE_URL, STARTER, manual_result, mo):
     mo.stop(not manual_result['combination_correct'])
     search_form=mo.md('{code}').batch(code=mo.ui.code_editor(
         value=STARTER,language='python',min_height=220,label='Your extract_performance_score function'
@@ -173,28 +194,28 @@ def _(SOURCE_URL,STARTER,manual_result,mo):
             'Age uses 2023-01-30; this dataset has no separate PayRate field.')}),
         mo.md('''**Complete only `extract_performance_score`.** Your function receives:
 
-- `profile` (`dict`): all known employee inputs; age is an integer, other fields are strings.
-  The actual `PerformanceScore` and `MaritalDesc` are not included.
-- `known_salary` (`float`): the observed salary, separate from the model inputs.
-- `model`: a salary prediction interface. `model.predict(full_profile)` accepts a
-  dictionary containing the known fields plus `PerformanceScore` and `MaritalDesc`,
-  and returns a salary as a `float`. Keep the known fields unchanged.
+    - `profile` (`dict`): all known employee inputs; age is an integer, other fields are strings.
+      The actual `PerformanceScore` and `MaritalDesc` are not included.
+    - `known_salary` (`float`): the observed salary, separate from the model inputs.
+    - `model`: a salary prediction interface. `model.predict(full_profile)` accepts a
+      dictionary containing the known fields plus `PerformanceScore` and `MaritalDesc`,
+      and returns a salary as a `float`. Keep the known fields unchanged.
 
-The lists `performance_values` and `marital_values` above the function are ready to use. They contain possible values, not the employee’s actual answers.
-The starter runs but makes an incorrect fixed guess for Myriam. Replace it with your implementation.
-Return only the inferred performance score as a `str`.
-The same function will be evaluated for each employee with their own known profile.
+    The lists `performance_values` and `marital_values` above the function are ready to use. They contain possible values, not the employee’s actual answers.
+    The starter runs but makes an incorrect fixed guess for Myriam. Replace it with your implementation.
+    Return only the inferred performance score as a `str`.
+    The same function will be evaluated for each employee with their own known profile.
 
-Your Python executes locally when you submit; imports, training, model queries,
-verification, and charts are already provided. Editing the box does not run it.
-Resubmitting code resets subsequent stages so their results use the same algorithm.'''),
+    Your Python executes locally when you submit; imports, training, model queries,
+    verification, and charts are already provided. Editing the box does not run it.
+    Resubmitting code resets subsequent stages so their results use the same algorithm.'''),
         search_form,
     ])
     return (search_form,)
 
 
 @app.cell(hide_code=True)
-def _(TARGET_ID,compile_search,data,evaluate,initial,mo,search_form):
+def _(TARGET_ID, compile_search, data, evaluate, initial, mo, search_form):
     mo.stop(search_form.value is None)
     search_function=None
     _problem=None
@@ -212,11 +233,11 @@ def _(TARGET_ID,compile_search,data,evaluate,initial,mo,search_form):
                    'Your attack did not recover Myriam’s performance score. Review your function.',
                    kind='success' if _target['Correct'] else 'info'),
     ])
-    return initial_population,search_function
+    return initial_population, search_function
 
 
 @app.cell(hide_code=True)
-def _(TARGET_ID,display_result,initial_population,mo):
+def _(TARGET_ID, display_result, initial_population, mo):
     _target=next(row for row in initial_population['records'] if row['EmpID']==TARGET_ID)
     _message=('Your attack works for Myriam, but not for most training employees. '
               'Success on one person does not mean the attack works across the database.'
@@ -233,7 +254,7 @@ def _(TARGET_ID,display_result,initial_population,mo):
 
 
 @app.cell(hide_code=True)
-def _(TARGET_ID,initial_population,mo):
+def _(TARGET_ID, initial_population, mo):
     _target=next(row for row in initial_population['records'] if row['EmpID']==TARGET_ID)
     mo.stop(not _target['Correct'])
     epoch_form=mo.md('{epochs} {learning_rate} {batch_size}\n\n{alpha} {early_stopping} {identifiers}').batch(
@@ -263,7 +284,17 @@ def _(TARGET_ID,initial_population,mo):
 
 
 @app.cell(hide_code=True)
-def _(data,display_result,epoch_form,evaluate,figure_png,fit,mo,search_function,single_learning_plot):
+def _(
+    data,
+    display_result,
+    epoch_form,
+    evaluate,
+    figure_png,
+    fit,
+    mo,
+    search_function,
+    single_learning_plot,
+):
     mo.stop(epoch_form.value is None)
     _problem=None
     try:
@@ -279,11 +310,11 @@ def _(data,display_result,epoch_form,evaluate,figure_png,fit,mo,search_function,
         mo.image(figure_png(single_learning_plot(overfit_run))),
         mo.callout('100% target achieved — your attack recovered every training employee’s performance score.' if _complete else 'Not yet 100%. Try another training configuration and compare the errors.',kind='success' if _complete else 'info'),
     ])
-    return overfit_run,overfit_result
+    return (overfit_result,)
 
 
 @app.cell(hide_code=True)
-def _(initial_population,mo,overfit_result):
+def _(initial_population, mo, overfit_result):
     _baseline=next(row['MAE'] for row in initial_population['salary_metrics'] if row['Split']=='Validation')
     _limit=1.1*_baseline
     mo.stop(overfit_result['accuracy']<1)
@@ -304,7 +335,19 @@ def _(initial_population,mo,overfit_result):
 
 
 @app.cell(hide_code=True)
-def _(data,defense_checks,defense_form,display_result,epoch_form,evaluate,fit,initial_population,mo,overfit_result,search_function):
+def _(
+    data,
+    defense_checks,
+    defense_form,
+    display_result,
+    epoch_form,
+    evaluate,
+    fit,
+    initial_population,
+    mo,
+    overfit_result,
+    search_function,
+):
     mo.stop(defense_form.value is None)
     _settings={**epoch_form.value,'alpha':float(defense_form.value['alpha'])}
     mo.stop(_settings['alpha']==overfit_result['alpha'],
@@ -334,7 +377,15 @@ def _(data,defense_checks,defense_form,display_result,epoch_form,evaluate,fit,in
 
 
 @app.cell(hide_code=True)
-def _(defense_result,figure_png,initial_population,manual_result,mo,overfit_result,submission_card):
+def _(
+    defense_result,
+    figure_png,
+    initial_population,
+    manual_result,
+    mo,
+    overfit_result,
+    submission_card,
+):
     _image=figure_png(submission_card(manual_result,initial_population,overfit_result,defense_result))
     mo.vstack([
         mo.md('### Submission\nSubmit this image.'),
@@ -344,5 +395,5 @@ def _(defense_result,figure_png,initial_population,manual_result,mo,overfit_resu
     return
 
 
-if __name__=='__main__':
+if __name__ == "__main__":
     app.run()
