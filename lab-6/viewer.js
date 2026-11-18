@@ -66,6 +66,11 @@ function scenarioFigure(parent, part, element) {
   element('h3',{text:'Your task'},task);
   if(!he) element('p',{class:'training-goal',text:'Goal: achieve held-out MSE ≤ 3.0 $k². Adjust the rounds and learning rate, rerun training, and record the settings that reach the goal.'},task);
   element('p',{text:he?'Implement client_encrypt using TenSEAL and serialized ciphertext bytes, the server’s encrypted_predict function for y = wᵀx + b, and client_decrypt to recover the returned prediction on the client. The starting model is salary ($k) = 12 × experience + 8 × education + 35, with both features scaled to [0, 1]. Execute the workflow, follow the messages, and compare the three decrypted predictions with the instructor’s reference.':'Implement client_gradient on each company client, aggregate_gradients on the server, and server_rounds. Set the training rounds and learning rate in the controls below (starting values: 1 round and 0.1). Each client computes one MSE gradient; the server averages using sample counts 20, 60, 120 and subtracts learning_rate × mean_gradient. In server_rounds, yield theta.copy() after each update so the viewer can record it. The communication adapter is provided.'},task);
+  if(he) {
+    const reference=element('p',{},task);
+    element('a',{text:'TenSEAL documentation',href:'https://openmined.github.io/TenSEAL/',target:'_blank',rel:'noopener noreferrer'},reference);
+    element('span',{text:' — reference for CKKS vectors, serialization, encrypted arithmetic, and decryption.'},reference);
+  }
 }
 
 function renderPart({model, el}, part, shared) {
