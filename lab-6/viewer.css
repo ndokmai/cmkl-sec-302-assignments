@@ -1,0 +1,48 @@
+.protocol-lab { --ink:#173047; --muted:#576c7c; --line:#cbd8df; --teal:#087d79; color:var(--ink); background:#f5f8fa; border:1px solid var(--line); border-radius:18px; padding:24px; font:15px/1.5 system-ui,sans-serif; color-scheme:light; }
+.protocol-lab * { box-sizing:border-box; }
+.protocol-lab [hidden],.protocol-lab[hidden] { display:none!important; }
+.protocol-lab h2 { margin:0 0 8px; font-size:25px; letter-spacing:-.6px; }
+.protocol-lab h3 { margin:0 0 10px; font-size:16px; }
+.protocol-lab p { margin:8px 0; }
+.protocol-lab .muted { color:var(--muted); font-size:13px; }
+.protocol-lab .badge { font:700 11px system-ui; text-transform:uppercase; letter-spacing:1px; color:var(--teal); }
+.protocol-lab button,.protocol-lab select { font:inherit; padding:7px 12px; border:1px solid #99b0be; background:white; color:var(--ink); border-radius:7px; cursor:pointer; }
+.protocol-lab button:hover { background:#e5f4f2; }
+.protocol-lab button:disabled { cursor:default; opacity:.45; }
+.protocol-lab button.primary { color:white; background:var(--teal); border-color:var(--teal); }
+.protocol-lab .toolbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0; }
+.protocol-lab .scenario { margin:20px 0; background:#f8fbfc; border:1px solid var(--line); border-radius:12px; padding:16px; }
+.protocol-lab .scenario svg { width:100%; height:auto; display:block; }
+.protocol-lab figcaption { font-size:14px; margin-top:12px; color:var(--muted); }
+.protocol-lab .threat-model { border-left:4px solid #b36a20; background:#fff8ee; padding:16px; margin:16px 0; }
+.protocol-lab .part-task { margin:20px 0; }
+.protocol-lab .panel { background:white; padding:16px; border:1px solid var(--line); border-radius:10px; min-width:0; }
+.protocol-lab .code-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0; }
+.protocol-lab textarea { display:block; width:100%; padding:12px; font:13px/1.6 ui-monospace,monospace; color:#163047; background:#f8fafc; border:1px solid #a8bbc7; border-radius:6px; resize:vertical; tab-size:4; }
+.protocol-lab pre { white-space:pre-wrap; overflow-wrap:anywhere; font:12px/1.5 ui-monospace,monospace; margin:8px 0; max-height:255px; overflow:auto; }
+.protocol-lab .active-code { border:2px solid var(--teal); background:#edfaf6; }
+.protocol-lab .status { min-height:48px; padding:12px 16px; background:#e5f2f1; border-radius:8px; font-weight:600; }
+.protocol-lab .network { position:relative; }
+.protocol-lab svg.network-map { width:100%; height:auto; max-height:260px; display:block; }
+.protocol-lab .node-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.protocol-lab .node-grid.fl { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.protocol-lab .node.active { border:2px solid var(--teal); background:#eaf9f3; }
+.protocol-lab .node pre { min-height:70px; max-height:210px; }
+.protocol-lab .below { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.protocol-lab .error { color:#a62b2b; border-color:#c76666; }
+.protocol-lab table { border-collapse:collapse; width:100%; font-size:12px; }
+.protocol-lab td,.protocol-lab th { text-align:left; border-bottom:1px solid var(--line); padding:7px; vertical-align:top; }
+.protocol-lab .table-scroll { overflow-x:auto; }
+.protocol-lab .log { max-height:300px; overflow:auto; }
+.protocol-lab .log li { margin:7px 0; }
+.protocol-lab details { margin-top:12px; }
+.protocol-lab summary { cursor:pointer; font-weight:600; }
+.protocol-lab .checks { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+.protocol-lab .check { border-radius:6px; padding:5px 9px; background:#e5f4ec; font-size:12px; }
+.protocol-lab .check.fail { background:#fff0e9; color:#9c331f; }
+.protocol-lab .chart { width:100%; height:auto; }
+.protocol-lab a { color:var(--teal); text-decoration:underline; }
+@media(max-width:800px) { .protocol-lab {padding:12px} .protocol-lab .code-grid,.protocol-lab .below {grid-template-columns:1fr} .protocol-lab .node-grid.fl {grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media(prefers-reduced-motion:reduce) { .protocol-lab * { scroll-behavior:auto; } }
+
+.protocol-lab .training-goal { background:#fff2cc; border-left:5px solid #b66a00; padding:16px 20px; margin:16px 0; color:#553300; font-size:1.08rem; font-weight:700; line-height:1.6; }
